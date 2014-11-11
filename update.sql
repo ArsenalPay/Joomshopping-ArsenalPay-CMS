@@ -1,0 +1,2 @@
+INSERT INTO `#__jshopping_payment_method` (`name_en-GB`, `description_en-GB`, `name_de-DE`, `description_de-DE`, `payment_code`, `payment_class`, `payment_publish`, `payment_ordering`, `payment_params`, `payment_type`, `price`, `price_type`, `tax_id`, `show_descr_in_email`, `name_ru-RU`, `description_ru-RU`) VALUES
+('Arsenalpay', '', 'Arsenalpay', '', 'arsenalpay', 'pm_arsenalpay', 1, 3, '', 2, 0.00, 1, 1, 0, 'Arsenalpay', '');
