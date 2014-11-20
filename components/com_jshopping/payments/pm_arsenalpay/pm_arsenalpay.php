@@ -3,11 +3,9 @@ defined('_JEXEC') or die('Restricted access');
 
 class pm_arsenalpay extends PaymentRoot 
 {
-	var $_errormessage = "";
-	
 	/**
     * static
-    * show form payment. Checkout Step3
+    * Checkout Step3
     * @param array $params - entered params
     * @param array $pmconfigs - configs
     */    
@@ -29,18 +27,12 @@ class pm_arsenalpay extends PaymentRoot
                 $params[$key] = '';
 		}
 		$orders = JSFactory::getModel('orders', 'JshoppingModel'); //admin model
-		//@$orders = &JModel::getInstance('orders', 'JshoppingModel');
-		//@$currency = &JModel::getInstance('currencies', 'JshoppingModel'); 
         include(dirname(__FILE__)."/adminparamsform.php");	
-        
-      // jimport('joomla.html.pane');
-       // @$pane =& JPane::getInstance('Tabs');
-       // echo $pane->endPanel();
     }
 	
 	
 	/**
-    * Check Transaction
+    * Check Transaction - here is the handling of callback requests about payments
     * @param array $pmconfigs parameters
     * @param object $order order
     * @param string $act action
@@ -83,8 +75,8 @@ class pm_arsenalpay extends PaymentRoot
 				return array(0, 'ERR_'.$key.'. Order ID '.$order->order_id);
 			}
 		} 
-		/*If it is needed to precheck of account existense*/
-		if ($ars_callback['FUNCTION'] == 'check'){
+		/*If it is needed to check the account existense before payment confirmation*/
+		if ($ars_callback['FUNCTION'] == 'check' && $ars_callback['STATUS'] == 'check'){
 			if ($order->order_id === $ars_callback['ACCOUNT']){
 				echo 'YES';
 				return array(2, 'YES. Order ID '.$order->order_id);
@@ -96,26 +88,19 @@ class pm_arsenalpay extends PaymentRoot
 		}
 	
         /**
-         * Checking validness of the response sign.
+         * Checking validness of the request sign.
          */
 		if( !( $this->_checkSign( $ars_callback, $pmconfigs['sign_key'] ) ) ) {
-			//============== For testing, delete after testing =============================
-			$S=md5(md5($ars_callback['ID']).
-                md5($ars_callback['FUNCTION']).md5($ars_callback['RRN']).
-                md5($ars_callback['PAYER']).md5($ars_callback['AMOUNT']).md5($ars_callback['ACCOUNT']).
-                md5($ars_callback['STATUS']).md5($pmconfigs['sign_key']) );
-			echo $S.'</br>';
-        //======================================
 			echo 'ERR_INVALID_SIGN';
 			return array(0,'ERR_INVALID_SIGN'.$order->order_id);
 		}
-		
-		
-		if (($ars_callback['FUNCTION']=="payment")) {
-			echo 'OK';
-			$cart = JModel::getInstance('cart', 'jshop');
+				
+		if (($ars_callback['FUNCTION']=="payment") && ($ars_callback['STATUS']=="payment") ) {
+			$cart = JSFactory::getModel('cart', 'jshop');
 			$cart->load();
-			$cart->clear();	
+			$cart->getSum();
+			$cart->clear();
+			echo 'OK';
 			return array(1, 'OK. Order ID '.$order->order_id);
 		}
 		else {
@@ -131,24 +116,31 @@ class pm_arsenalpay extends PaymentRoot
                 md5($callback['STATUS']).md5($pass) ) )? true : false;
         return $validSign; 
 		}
-	
+		
+	/*Checkout Step6 - show ArsenalPay payment form*/
 	function showEndForm($pmconfigs, $order)
-	{       
-		$token = $pmconfigs['unique_id'];
-		$src = $pmconfigs['payment_src'];
+	{   
 		$f_url = $pmconfigs['frame_url'];
-		$f_mode = $pmconfigs['frame_mode'];
-		$css_file = $pmconfigs['css_url'];
-		$f_width = $pmconfigs['frame_width'];
-		$f_height = $pmconfigs['frame_height'];
-		$f_border = $pmconfigs['frame_border'];
-		$f_scrolling = $pmconfigs['frame_scrolling'];
+		$f_width = !empty( $pmconfigs['frame_width'] ) ? $pmconfigs['frame_width'] : '100%';
+		$f_height = !empty( $pmconfigs['frame_height'] ) ? $pmconfigs['frame_height'] : '500' ;
+		$f_border = !empty( $pmconfigs['frame_border'] ) ? $pmconfigs['frame_border'] : '0';
+		$f_scrolling = !empty( $pmconfigs['frame_scrolling'] ) ? $pmconfigs['frame_border'] : 'no';
 		
         // sum of order
         $out_summ = number_format( $order->order_total / $order->currency_exchange, 2, '.','' );
+		$url_params = array(
+				'src' => $pmconfigs['payment_src'],
+				't' => $pmconfigs['unique_id'],
+				'n' => $order->order_id,
+				'a' => $out_summ,
+				'msisdn'=> '',
+				'css' => $pmconfigs['css_url'],
+				'frame' => $pmconfigs['frame_mode'],
+            );
+		$ap_frame_src = $f_url.'?'.http_build_query($url_params, '', '&');
 		?>
-		<iframe id='arspay' src="<?=$f_url?>?src=<?=$src?>&t=<?=$token?>&n=<?=$order->order_id?>&a=<?=$out_summ?>&css=<?=$css_file?>&frame=<?=$f_mode?>" seamless="seamless" width=<?=$f_width?> height=<?=$f_height?> frameborder=<?=$f_border?> scrolling=<?=$f_scrolling?>></iframe>>
-		<?php 		
+		<iframe id='arspay' src="<?=$ap_frame_src?>" seamless="seamless" width=<?=$f_width?> height=<?=$f_height?> frameborder=<?=$f_border?> scrolling=<?=$f_scrolling?>></iframe>
+		<?php 
       }
 	
     function getUrlParams($pmconfigs)
@@ -163,8 +155,8 @@ class pm_arsenalpay extends PaymentRoot
 	
 	function loadLangFile() {
 		$lang = JFactory::getLanguage();
-		if (!$lang_file = JPATH_SITE.'/components/com_jshopping/lang/' . $lang->getTag() . '.pm_arsenalpay.php') {
-			require_once JPATH_ROOT . '/components/com_jshopping/lang/' . 'en-GB.pm_arsenalpay.php';
+		if (!$lang_file = JPATH_SITE.'/components/com_jshopping/payments/pm_arsenalpay/lang/' . $lang->getTag() . '.pm_arsenalpay.php') {
+			require_once JPATH_ROOT . '/components/com_jshopping/payments/arsenalpay/lang/' . 'en-GB.pm_arsenalpay.php';
 			}
 		else {
 			require_once $lang_file;

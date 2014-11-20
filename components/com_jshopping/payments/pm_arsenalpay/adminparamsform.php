@@ -4,23 +4,25 @@
 <table class="admintable" width = "100%" >
  <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_UNIQUE_ID;?>
+     <?php echo _JSHOP_ARS_UNIQUE_ID;?><span style="color:red"> *</span>
    </td>
    <td>
 	   <input type = "text" class = "inputbox" name = "pm_params[unique_id]" size="45" value = "<?php echo $params['unique_id']?>" />
+	   <?php echo JHTML::tooltip(_JSHOP_ARS_UNIQUE_ID_TIP);?>
    </td>
  </tr>
  <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_FRAME_URL;?>
+     <?php echo _JSHOP_ARS_FRAME_URL;?><span style="color:red"> *</span>
    </td>
    <td>
 	   <input type = "text" class = "inputbox" name = "pm_params[frame_url]" size="45" value = "<?php echo $params['frame_url']?>" />
+	    <?php echo JHTML::tooltip(_JSHOP_ARS_FRAME_URL_TIP);?>
    </td>
  </tr>
  <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_PAYMENT_SRC;?>
+     <?php echo _JSHOP_ARS_PAYMENT_SRC;?><span style="color:red"> *</span>
    </td>
    <td>
 	   <input type = "text" class = "inputbox" name = "pm_params[payment_src]" size="45" value = "<?php echo $params['payment_src']?>" />
@@ -29,15 +31,16 @@
  </tr>
   <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_ALLOWED_IP;?>
+     <?php echo _JSHOP_ARS_CSS_URL;?>
    </td>
    <td>
-	   <input type = "text" class = "inputbox" name = "pm_params[allowed_ip]" size="45" value = "<?php echo $params['allowed_ip']?>" />
+	   <input type = "text" class = "inputbox" name = "pm_params[css_url]" size="45" value = "<?php echo $params['css_url']?>" />
+           <?php echo JHTML::tooltip(_JSHOP_ARS_CSS_URL_TIP);?>
    </td>
  </tr>
   <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_SIGN_KEY;?>
+     <?php echo _JSHOP_ARS_SIGN_KEY;?><span style="color:red"> *</span>
    </td>
    <td>
 	   <input type = "text" class = "inputbox" name = "pm_params[sign_key]" size="45" value = "<?php echo $params['sign_key']?>" />
@@ -46,19 +49,11 @@
  </tr>
   <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_CSS_URL;?>
+     <?php echo _JSHOP_ARS_ALLOWED_IP;?>
    </td>
    <td>
-	   <input type = "text" class = "inputbox" name = "pm_params[css_url]" size="45" value = "<?php echo $params['css_url']?>" />
-   </td>
- </tr>
-  <tr>
-   <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_FRAME_MODE;?>
-   </td>
-   <td>
-	   <input type = "text" class = "inputbox" name = "pm_params[frame_mode]" size="45" value = "<?php echo $params['frame_mode']?>" />
-	   <?php echo JHTML::tooltip(_JSHOP_ARS_FRAME_MODE_TIP);?>
+	   <input type = "text" class = "inputbox" name = "pm_params[allowed_ip]" size="45" value = "<?php echo $params['allowed_ip']?>" />
+	   <?php echo JHTML::tooltip(_JSHOP_ARS_ALLOWED_IP_TIP);?>
    </td>
  </tr>
   <tr>
@@ -66,12 +61,12 @@
      <?php echo _JSHOP_ARS_CHECK_URL;?>
    </td>
    <td>
-	   <input type = "text" class = "inputbox" name = "pm_params[payer_callback_url]" size="45" value = "<?php echo $params['check_url']?>" />
+	   <input type = "text" class = "inputbox" name = "pm_params[check_url]" size="45" value = "<?php echo $params['check_url']?>" />
    </td>
  </tr>
   <tr>
    <td style="width:250px;" class="key">
-     <?php echo _JSHOP_ARS_CALLBACK_URL;?>
+     <?php echo _JSHOP_ARS_CALLBACK_URL;?><span style="color:red"> *</span>
    </td>
    <td>
 	 <?php 
@@ -101,7 +96,7 @@
  </tr>
   <tr>
    <td class="key">
-     <?php echo _JSHOP_ARS_STATUS_END;?>
+     <?php echo _JSHOP_ARS_STATUS_END;?><span style="color:red"> *</span>
    </td>
    <td>
      <?php              
@@ -111,7 +106,7 @@
  </tr>
   <tr>
    <td class="key">
-     <?php echo _JSHOP_ARS_STATUS_PENDING;?>
+     <?php echo _JSHOP_ARS_STATUS_PENDING;?><span style="color:red"> *</span>
    </td>
    <td>
 	 <?php 
@@ -121,7 +116,7 @@
  </tr>
   <tr>
    <td class="key">
-     <?php echo _JSHOP_ARS_STATUS_FAILED;?>
+     <?php echo _JSHOP_ARS_STATUS_FAILED;?><span style="color:red"> *</span>
    </td>
    <td>
      <?php 
@@ -129,6 +124,16 @@
      ?>
    </td>
  </tr>
+  <tr>
+   <td style="width:250px;" class="key">
+     <?php echo _JSHOP_ARS_FRAME_MODE;?>
+   </td>
+   <td>
+	   <input type = "text" class = "inputbox" name = "pm_params[frame_mode]" size="45" value = "<?php echo $params['frame_mode']?>" />
+	   <?php echo JHTML::tooltip(_JSHOP_ARS_FRAME_MODE_TIP);?>
+   </td>
+ </tr>
+ <th colspan=2><?php echo _JSHOP_ARS_FRAME_PARAMS_SECTION;?></th>
  <tr>
    <td style="width:250px;" class="key">
      <?php echo _JSHOP_ARS_FRAME_WIDTH;?>
@@ -161,5 +166,11 @@
 	   <input type = "text" class = "inputbox" name = "pm_params[frame_scrolling]" size="45" value = "<?php echo $params['frame_scrolling']?>" />
    </td>
  </tr>
+ </table>
+</fieldset>
+</div>
+<div style="padding-top:10px;">
+     <div class="requiredtext" style="color:red">* <?php echo _JSHOP_ARS_REQUIRED_TEXT;?></div>
+<div class="clr"></div>
 
 
