@@ -22,7 +22,7 @@ Basic feature list:
 For more information go to [arsenalpay.ru](http://arsenalpay.ru)
  
 ## How to install
-1. Download the  zip archive of this module from:
+1. Make zip archive from src files exluding ReadMe file from:
 	`http://github/`
 2. Go to Joomla! admin panel.
 3. There go  to **Components > JoomShopping > Install & Update**.
@@ -42,7 +42,7 @@ For more information go to [arsenalpay.ru](http://arsenalpay.ru)
  - Your online shop will be receiving callback requests about processed payments for automatically change of order status. The callbacks will be received onto the address assigned in the field **Callback URL** of the payment module settings.
  - If it is needed to check a payer order number before payment processing you should fill out the field of **Check URL** in the module settings with url-address to which ArsenalPay will be sending requests with check parameters. By default the address is the same with **Callback URL**. 
  - Set order statuses for successful, pending and failed transactions.
- - Set **Frame mode** as `1` to display payment frame inside your site, otherwise a payer will be redirected directly to the payment frame url.
+ - Set **Frame mode** as `1` to display payment page inside frame at your site, as `0` to redirect a payer directly to the payment page url.
  - You can adjust **width**, **height**, **frameborder** and **scrolling** of ArsenalPay payment frame by setting iframe parameters.
 5. Save your settings by clicking on **Save & Close**
 
@@ -70,7 +70,7 @@ After successful installation and proper settings new choice of payment method w
 За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](http://arsenalpay.ru)
 
 ### УСТАНОВКА 
-1. Скачайте  zip архив платежного модуля ArsenalPay на `http://guthub` .
+1. Скачайте zip архив платежного модуля ArsenalPay на `http://guthub` .
 2. Зайдите в администрирование Joomla!.
 3. Затем пройдите в раздел **Компоненты > JoomShopping > Установка и обновление**.
 4. Загрузите скачанный на первом шаге архив c модулем ArsenalPay.
@@ -88,7 +88,7 @@ After successful installation and proper settings new choice of payment method w
  - Ваш интернет-магазин будет получать уведомления о совершенных платежах: на адрес, указанный в поле **URL для обратного запроса**, от ArsenalPay будет поступать запрос с результатом платежа для фиксирования статусов заказа в системе предприятия.
  - При необходимости осуществления проверки номера заказа перед проведением платежа, Вы должны заполнить поле **URL для проверки**, на который от ArsenalPay будет поступать запрос на проверку. По умолчанию значение совпадает с **URL для обратного запроса**.
  - Установите статус для успешных, ожидаемых и неудавшихся платежей.
- - Вы можете устанавливать **Режим отображения фрейма**. Значение `1` соответствует отображению фрейма внутри Вашего сайта , иначе пользователь будет перенаправляться напрямую на адрес платежного фрейма.
+ - Вы можете устанавливать **Режим отображения фрейма**. Значение `1` соответствует отображению платежной страницы внутри фрейма на Вашем сайте, `0` - пользователь будет перенаправляться напрямую по адресу платежной страницы.
  - Вы можете подгонять ширину, высоту, границу и прокрутку платежного фрейма, задавая соответствующие значения параметров iframe.
 5. Сохраните настройки нажатием на **Сохранить и закрыть**.
 
