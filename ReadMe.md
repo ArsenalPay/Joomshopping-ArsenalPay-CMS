@@ -10,7 +10,7 @@
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
 ## Source
-[Official integration guide page]( https://arsenalpay.ru/site/integration/ )
+[Official integration guide page]( https://arsenalpay.ru/site/cmsplugins )
 
 Basic feature list:
 
@@ -22,7 +22,7 @@ Basic feature list:
 For more information go to [arsenalpay.ru](http://arsenalpay.ru)
  
 ## How to install
-1. Make zip archive from src files exluding ReadMe file from:
+1. Make zip archive from src files excluding ReadMe file from:
 	`http://github/`
 2. Go to Joomla! admin panel.
 3. There go  to **Components > JoomShopping > Install & Update**.
@@ -70,7 +70,7 @@ After successful installation and proper settings new choice of payment method w
 За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](http://arsenalpay.ru)
 
 ### УСТАНОВКА 
-1. Скачайте zip архив платежного модуля ArsenalPay на `http://guthub` .
+1. Скачайте zip архив платежного модуля ArsenalPay без ReadMe файла с `http://guthub` .
 2. Зайдите в администрирование Joomla!.
 3. Затем пройдите в раздел **Компоненты > JoomShopping > Установка и обновление**.
 4. Загрузите скачанный на первом шаге архив c модулем ArsenalPay.
@@ -80,7 +80,7 @@ After successful installation and proper settings new choice of payment method w
 2. Найдите в списке **ArsenalPay** и нажмите на **Редактировать**.
 3. Во вкладке **Главная** Вы можете изменить **Название** платежного метода ArsenalPay так, как Вы хотите отобразить его на Вашем сайте.
 4. Переключитесь  на вкладку **Конфигурация**:
- - Заполните поля **Уникальный токен** и **Ключ (key) **, присвоенными Вам токеном и ключом для подписи.
+ - Заполните поля **Уникальный токен** и **Ключ (key)**, присвоенными Вам токеном и ключом для подписи.
  - Установите **URL-адрес фрейма** как `https://arsenalpay.ru/payframe/pay.php`
  - Установите **Тип оплаты** как `card` для активации платежей с пластиковых карт или  как `mk` — платежей с аккаунтов мобильных телефонов.
  - Вы можете задать **Параметр css** для применения к отображению платежного фрейма, указав url css-файла.
