@@ -1,7 +1,7 @@
 <?php
-/**
+/*
 * @version      1.0.0
-* @author       ArsenalPay
+* @author       Arsenal Media Dev.Team
 * @package      Jshopping
 * @copyright    Copyright (C) 2014 arsenalpay.ru. All rights reserved.
 * @license      GNU/GPL
