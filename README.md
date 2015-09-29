@@ -19,11 +19,11 @@ Basic feature list:
  * Allows to pay using mobile commerce and bank aquiring. More methods are about to become available. Please check for updates.
  * Supports two languages (Russian, English).
 
-For more information go to [arsenalpay.ru](http://arsenalpay.ru)
+For more information go to [arsenalpay.ru](https://arsenalpay.ru)
  
 ## How to install
 1. Make zip archive from src files excluding ReadMe file from:
-	`http://github/`
+	`https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/`
 2. Go to Joomla! admin panel.
 3. There go  to **Components > JoomShopping > Install & Update**.
 4. Upload  ArsenalPay module zip package. 
@@ -67,7 +67,7 @@ After successful installation and proper settings new choice of payment method w
 * Платежная система ArsenalPay позволяет совершать оплату с различных источников списания средств: мобильных номеров (МТС/Мегафон/Билайн/TELE2), пластиковых карт (VISA/MasterCard/Maestro). Перечень доступных источников средств постоянно пополняется. Следите за обновлениями.
 * Модуль поддерживает русский и английский языки.
 
-За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](http://arsenalpay.ru)
+За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](https://arsenalpay.ru)
 
 ### УСТАНОВКА 
 1. Скачайте zip архив платежного модуля ArsenalPay без ReadMe файла с `https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS` .
