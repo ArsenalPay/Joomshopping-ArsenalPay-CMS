@@ -1,6 +1,6 @@
 # ArsenalPay Payment Module for Joomshopping of Joomla! CMS
 
-[Arsenal Media LLC](http://www.arsenalmedia.ru/index.php/en)
+*Arsenal Media LLC*
 
 [Arsenal Pay processing server]( https://arsenalpay.ru/ )
 
@@ -10,7 +10,7 @@
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
 ## Source
-[Official integration guide page]( https://arsenalpay.ru/site/cmsplugins )
+[Official integration guide page]( https://arsenalpay.ru/developers.html )
 
 Basic feature list:
 
