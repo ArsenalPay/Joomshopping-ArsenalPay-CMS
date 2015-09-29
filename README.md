@@ -70,7 +70,7 @@ After successful installation and proper settings new choice of payment method w
 За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](http://arsenalpay.ru)
 
 ### УСТАНОВКА 
-1. Скачайте zip архив платежного модуля ArsenalPay без ReadMe файла с `http://guthub` .
+1. Скачайте zip архив платежного модуля ArsenalPay без ReadMe файла с `https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS` .
 2. Зайдите в администрирование Joomla!.
 3. Затем пройдите в раздел **Компоненты > JoomShopping > Установка и обновление**.
 4. Загрузите скачанный на первом шаге архив c модулем ArsenalPay.
