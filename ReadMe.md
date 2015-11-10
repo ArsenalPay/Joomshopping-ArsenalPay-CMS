@@ -22,8 +22,7 @@ Basic feature list:
 For more information go to [arsenalpay.ru](https://arsenalpay.ru)
  
 ## How to install
-1. Make zip archive from src files excluding ReadMe file from:
-	`https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/` (IMPORTANT! The archive must contain the structure of the project itself, without any additional folder in the upper level of the structure.)
+1. Download the latest release (Joomshopping-ArsenalPay-CMS-*.*.*.zip) from: `https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/`: (IMPORTANT! The archive must contain the structure of the project itself started at `components`, without any additional folder in the upper level of the structure.)
 2. Go to Joomla! admin panel.
 3. There go  to **Components > JoomShopping > Install & Update**.
 4. Upload  ArsenalPay module zip package. 
@@ -70,7 +69,7 @@ After successful installation and proper settings new choice of payment method w
 За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](https://arsenalpay.ru)
 
 ### УСТАНОВКА 
-1. Скачайте zip архив платежного модуля ArsenalPay без ReadMe файла с `https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS` (ВАЖНО! Архив должен сам содержать структуру проекта без дополнительной папки на верхнем уровне этой структуры.)
+1. Скачайте последний релиз платежного модуля ArsenalPay (Joomshopping-ArsenalPay-CMS-*.*.*.zip) с `https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/` (ВАЖНО! Архив должен сам содержать структуру проекта, начинающуюся с `components`, без дополнительной папки на верхнем уровне этой структуры.)
 2. Зайдите в администрирование Joomla!.
 3. Затем пройдите в раздел **Компоненты > JoomShopping > Установка и обновление**.
 4. Загрузите скачанный на первом шаге архив c модулем ArsenalPay.
