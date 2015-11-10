@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     1.0.0 11.11.2014
+ * @version     1.0.1 10.11.2015
  * @author      ArsenalPay Dev. Team
  * @package     Jshopping
  * @copyright   Copyright (C) 2014-2015 ArsenalPay. All rights reserved.

@@ -5,7 +5,7 @@
 [Arsenal Pay processing server]( https://arsenalpay.ru/ )
 
 ## Version
-1.0.0
+1.0.1
 
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
