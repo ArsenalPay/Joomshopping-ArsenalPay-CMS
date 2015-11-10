@@ -1,11 +1,11 @@
 <?php
-/*
-* @version      1.0.0
-* @author       Arsenal Media Dev.Team
-* @package      Jshopping
-* @copyright    Copyright (C) 2014 arsenalpay.ru. All rights reserved.
-* @license      GNU/GPL
-*/
+/**
+ * @version     1.0.0 11.11.2014
+ * @author      ArsenalPay Dev. Team
+ * @package     Jshopping
+ * @copyright   Copyright (C) 2014-2015 ArsenalPay. All rights reserved.
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL 
+ */
 defined('_JEXEC') or die('Restricted access');
 
 class pm_arsenalpay extends PaymentRoot 

@@ -1,4 +1,12 @@
 <?php
+/**
+ * @version     1.0.0 11.11.2014
+ * @author      ArsenalPay Dev. Team
+ * @package     Jshopping
+ * @copyright   Copyright (C) 2014-2015 ArsenalPay. All rights reserved.
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL 
+ */
+defined('_JEXEC') or die('Restricted access');
 define('_JSHOP_ARS_UNIQUE_ID','Уникальный токен');
 define('_JSHOP_ARS_UNIQUE_ID_TIP','Присваивается предприятию для доступа к платежному фрейму.');
 define('_JSHOP_ARS_FRAME_URL','URL-адрес фрейма');
