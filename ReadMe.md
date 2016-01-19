@@ -19,7 +19,7 @@ Basic feature list:
  * Allows to pay using mobile commerce and bank aquiring. More methods are about to become available. Please check for updates.
  * Supports two languages (Russian, English).
 
-For more information go to [arsenalpay.ru](https://arsenalpay.ru)
+For more information go to [arsenalpay.com](https://arsenalpay.com)
  
 ## How to install
 1. Download the latest release [Joomshopping-ArsenalPay-CMS-\*.\*.\*.zip](https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/) (IMPORTANT! The archive must contain the structure of the project itself started at `components`, without any additional folder in the upper level of the structure.)
@@ -66,8 +66,6 @@ After successful installation and proper settings new choice of payment method w
 * Платежная система ArsenalPay позволяет совершать оплату с различных источников списания средств: мобильных номеров (МТС/Мегафон/Билайн/TELE2), пластиковых карт (VISA/MasterCard/Maestro). Перечень доступных источников средств постоянно пополняется. Следите за обновлениями.
 * Модуль поддерживает русский и английский языки.
 
-За более подробной информацией о платежной системе ArsenalPay обращайтесь по адресу [arsenalpay.ru](https://arsenalpay.ru)
-
 ### УСТАНОВКА 
 1. Скачайте последний релиз платежного модуля ArsenalPay [Joomshopping-ArsenalPay-CMS-\*.\*.\*.zip](https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/) (ВАЖНО! Архив должен сам содержать структуру проекта, начинающуюся с `components`, без дополнительной папки на верхнем уровне этой структуры.)
 2. Зайдите в администрирование Joomla!.
@@ -91,7 +89,6 @@ After successful installation and proper settings new choice of payment method w
  - Вы можете подгонять ширину, высоту, границу и прокрутку платежного фрейма, задавая соответствующие значения параметров iframe.
 5. Сохраните настройки нажатием на **Сохранить и закрыть**.
 
-
 ### УДАЛЕНИЕ
 1. Пройдите в раздел **Компоненты > JoomShopping > Опции > Способ оплаты**  администрирования Joomla!
 2. Удалите созданный при установке способ оплаты ArsenalPay;
@@ -106,6 +103,40 @@ After successful installation and proper settings new choice of payment method w
 3. В разделе "Платежные системы" выбрать платежную систему ArsenalPay.
 4. Перейти на страницу подтверждения введенных данных и ввода источника списания средств (мобильный номер, пластиковая карта и т.д.).
 5. После ввода данных об источнике платежа, в зависимости от его типа, либо придет СМС о подтверждении платежа, либо покупатель будет перенаправлен на страницу с результатом платежа.
+
+### ОПИСАНИЕ РЕШЕНИЯ
+ArsenalPay – удобный и надежный платежный сервис для бизнеса любого размера. 
+
+Используя платежный модуль от ArsenalPay, вы сможете принимать онлайн-платежи от клиентов по всему миру с помощью: 
+пластиковых карт международных платёжных систем Visa и MasterCard, эмитированных в любом банке
+баланса мобильного телефона операторов МТС, Мегафон, Билайн, Ростелеком и ТЕЛЕ2
+различных электронных кошельков 
+
+### Преимущества сервиса: 
+ - Самые низкие тарифы
+ - Бесплатное подключение и обслуживание
+ - Легкая интеграция
+ - Агентская схема: ежемесячные выплаты разработчикам
+ - Вывод средств на расчетный счет без комиссии
+ - Сервис смс оповещений
+ - Персональный личный кабинет
+ - Круглосуточная сервисная поддержка клиентов 
+
+А ещё мы можем взять на техническую поддержку ваш сайт и создать для вас мобильные приложения для Android и iOS. 
+
+ArsenalPay – увеличить прибыль просто! 
+Мы работаем 7 дней в неделю и 24 часа в сутки. А вместе с нами множество российских и зарубежных компаний. 
+
+### Как подключиться: 
+1. Вы скачали модуль и установили его у себя на сайте;
+2. Отправьте нам письмом ссылку на Ваш сайт на pay@arsenalpay.ru;
+3. Мы Вам вышлем коммерческие условия и технические настройки;
+4. После Вашего согласия мы отправим Вам проект договора на рассмотрение.
+5. Подписываем договор и приступаем к работе.
+
+Всегда с радостью ждем ваших писем с предложениями. 
+pay@arsenalpay.ru 
+[arsenalpay.ru](https://arsenalpay.ru)
 
 
 
