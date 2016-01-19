@@ -2,10 +2,6 @@
 
 *Arsenal Media LLC*
 
-[Arsenal Pay [Russian version]]( https://arsenalpay.ru/ )
-
-[Arsenal Pay [English version]]( https://arsenalpay.com/ )
-
 ## Version
 1.0.1
 
@@ -138,6 +134,7 @@ ArsenalPay – увеличить прибыль просто!
 5. Подписываем договор и приступаем к работе.
 
 Всегда с радостью ждем ваших писем с предложениями. 
+
 pay@arsenalpay.ru 
 
 [arsenalpay.ru](https://arsenalpay.ru)
