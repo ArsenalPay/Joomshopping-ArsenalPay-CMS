@@ -17,7 +17,7 @@ Basic feature list:
  * Allows to pay using mobile commerce and bank aquiring. More methods are about to become available. Please check for updates.
  * Supports two languages (Russian, English).
 
-For more information go to [arsenalpay.com](https://arsenalpay.com)
+For more information go to [arsenalpay.ru](https://arsenalpay.ru) or [arsenalpay.com](https://arsenalpay.com) for English version.
  
 ## How to install
 1. Download the latest release [Joomshopping-ArsenalPay-CMS-\*.\*.\*.zip](https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/) (IMPORTANT! The archive must contain the structure of the project itself started at `components`, without any additional folder in the upper level of the structure.)
