@@ -10,7 +10,7 @@
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
 ## Source
-[Official integration guide page]( https://arsenalpay.ru/developers.html )
+[Official integration guide page]( https://arsenalpay.ru/developers.html )  
 [Module in Joomla! Extensions Directory](http://extensions.joomla.org/extensions/extension/e-commerce/payment-gateway/arsenalpay-for-joomshopping)
 
 Basic feature list:
