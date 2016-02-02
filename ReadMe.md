@@ -59,6 +59,7 @@ After successful installation and proper settings new choice of payment method w
 
 ## Changelog
 * 1.0.2 - Upgrade if you need to handle the amount in callback less that the total amount of the order.
+
 ------------------
 ### О МОДУЛЕ
 * Модуль платежной системы ArsenalPay под Joomshopping позволяет легко встроить платежную страницу на Ваш сайт.
