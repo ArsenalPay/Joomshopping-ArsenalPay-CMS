@@ -5,7 +5,7 @@
 [Arsenal Pay processing center](https://arsenalpay.ru/)
 
 ## Version
-1.0.1
+1.0.2
 
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
@@ -57,6 +57,8 @@ After successful installation and proper settings new choice of payment method w
 4. Check the order detailes and confirm the order.
 5. After filling out the information depending on the payment type he will receive SMS about payment confirmation or will be redirected to the page with the result of his payment.
 
+## Changelog
+* 1.0.2 - Upgrade if you need to handle the amount in callback less that the total amount of the order.
 ------------------
 ### О МОДУЛЕ
 * Модуль платежной системы ArsenalPay под Joomshopping позволяет легко встроить платежную страницу на Ваш сайт.
