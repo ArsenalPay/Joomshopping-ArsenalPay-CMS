@@ -11,6 +11,7 @@
 
 ## Source
 [Official integration guide page]( https://arsenalpay.ru/developers.html )
+[Module in Joomla! Extensions Directory](http://extensions.joomla.org/extensions/extension/e-commerce/payment-gateway/arsenalpay-for-joomshopping)
 
 Basic feature list:
 
