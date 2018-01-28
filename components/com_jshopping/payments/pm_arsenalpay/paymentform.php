@@ -6,10 +6,10 @@
  * @copyright   Copyright (C) 2014-2016 ArsenalPay. All rights reserved.
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined ('_JEXEC') or die('Restricted access');
+defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <script type="text/javascript">
-    function check_<?php print $paymentPluginClass; ?>(){
+    function check_ <?php print $paymentPluginClass; ?>() {
         jQuery('#payment_form').submit();
     }
 </script>

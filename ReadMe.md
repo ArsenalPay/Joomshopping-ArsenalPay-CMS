@@ -5,7 +5,7 @@
 [Arsenal Pay processing center](https://arsenalpay.ru/)
 
 ## Version
-1.0.2
+1.0.3
 
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
@@ -32,16 +32,10 @@ Basic feature list:
 2. There find **ArsenalPay** and click on **Edit**.
 3. In **General** tab you can change the **Title** of ArsenalPay payment method as you wish it will be appeared at your site.
 4. Go into **Config** tab and make following settings there:
- - Fill out **Unique token**, **Sign key** fields with your received token and key.
- - Set **Frame URL** as `https://arsenalpay.ru/payframe/pay.php`
- - Set **Payment type** as `card` to activate payments with bank cards or `mk` to activate payments from mobile phone accounts.
- - **css parameter**. You can specify CSS file to apply it to the view of payment frame by inserting its url.
- - You can specify ip address only from which it will be allowed to receive callback requests about payments onto your site in **Allowed IP address** field.
+ - Fill out **Widget ID**,**Widget Key**, **Callback key** fields with your received widget id, widget key and callback key.
  - Your online shop will be receiving callback requests about processed payments for automatically change of order status. The callbacks will be received onto the address assigned in the field **Callback URL** of the payment module settings.
- - If it is needed to check a payer order number before payment processing you should fill out the field of **Check URL** in the module settings with url-address to which ArsenalPay will be sending requests with check parameters. By default the address is the same with **Callback URL**. 
- - Set order statuses for successful, pending and failed transactions.
- - Set **Frame mode** as `1` to display payment page inside frame at your site, as `0` to redirect a payer directly to the payment page url.
- - You can adjust **width**, **height**, **frameborder** and **scrolling** of ArsenalPay payment frame by setting iframe parameters.
+ - Set order statuses for successful, check, cancel, hold, reverse, refund transactions.
+ - You can specify ip address only from which it will be allowed to receive callback requests about payments onto your site in **Allowed IP address** field.
 5. Save your settings by clicking on **Save & Close**
 
 ## How to delete
@@ -59,6 +53,7 @@ After successful installation and proper settings new choice of payment method w
 5. After filling out the information depending on the payment type he will receive SMS about payment confirmation or will be redirected to the page with the result of his payment.
 
 ## Changelog
+* 1.0.3 - Upgrade to move from frame to widget.
 * 1.0.2 - Upgrade if you need to handle the amount in callback less that the total amount of the order.
 
 ------------------
@@ -79,16 +74,11 @@ After successful installation and proper settings new choice of payment method w
 2. Найдите в списке **ArsenalPay** и нажмите на **Редактировать**.
 3. Во вкладке **Главная** Вы можете изменить **Название** платежного метода ArsenalPay так, как Вы хотите отобразить его на Вашем сайте.
 4. Переключитесь  на вкладку **Конфигурация**:
- - Заполните поля **Уникальный токен** и **Ключ (key)**, присвоенными Вам токеном и ключом для подписи.
- - Установите **URL-адрес фрейма** как `https://arsenalpay.ru/payframe/pay.php`
- - Установите **Тип оплаты** как `card` для активации платежей с пластиковых карт или  как `mk` — платежей с аккаунтов мобильных телефонов.
- - Вы можете задать **Параметр css** для применения к отображению платежного фрейма, указав url css-файла.
- - Вы можете задать ip-адрес, только с которого будут разрешены обратные запросы о совершаемых платежах, в поле **Разрешенный IP-адрес**.
+ - Заполните поля **Widget ID**, **Widget Key** и **Callback key**, присвоенными Вам номером виджета, ключом виджета и ключом для проверки подписи.
  - Ваш интернет-магазин будет получать уведомления о совершенных платежах: на адрес, указанный в поле **URL для обратного запроса**, от ArsenalPay будет поступать запрос с результатом платежа для фиксирования статусов заказа в системе предприятия.
- - При необходимости осуществления проверки номера заказа перед проведением платежа, Вы должны заполнить поле **URL для проверки**, на который от ArsenalPay будет поступать запрос на проверку. По умолчанию значение совпадает с **URL для обратного запроса**.
- - Установите статус для успешных, ожидаемых и неудавшихся платежей.
- - Вы можете устанавливать **Режим отображения фрейма**. Значение `1` соответствует отображению платежной страницы внутри фрейма на Вашем сайте, `0` - пользователь будет перенаправляться напрямую по адресу платежной страницы.
- - Вы можете подгонять ширину, высоту, границу и прокрутку платежного фрейма, задавая соответствующие значения параметров iframe.
+ - Установите статусы заказов на время ожидания оплаты, после подтверждения платежа, неудавшегося платежа, полного возврата платежа, частичного возврата платежа, отказа от платежа, и случая, когда средства на карте были зарезервированы, но еще не списаны.
+ - Вы можете задать ip-адрес, только с которого будут разрешены обратные запросы о совершаемых платежах, в поле **Разрешенный IP-адрес**.
+
 5. Сохраните настройки нажатием на **Сохранить и закрыть**.
 
 ### УДАЛЕНИЕ
@@ -111,7 +101,7 @@ After successful installation and proper settings new choice of payment method w
 ArsenalPay – удобный и надежный платежный сервис для бизнеса любого размера. 
 
 Используя платежный модуль от ArsenalPay, вы сможете принимать онлайн-платежи от клиентов по всему миру с помощью: 
-пластиковых карт международных платёжных систем Visa и MasterCard, эмитированных в любом банке
+пластиковых карт международных платёжных систем Мир, Visa и MasterCard, эмитированных в любом банке
 баланса мобильного телефона операторов МТС, Мегафон, Билайн, Ростелеком и ТЕЛЕ2
 различных электронных кошельков 
 
