@@ -7,11 +7,11 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
-define( '_JSHOP_ARS_WIDGET_ID', 'Widget ID' );
+define( '_JSHOP_ARS_WIDGET_ID', 'widget' );
 define( '_JSHOP_ARS_WIDGET_ID_TIP', 'Assigned to merchant for access to ArsenalPay payment widget.' );
-define( '_JSHOP_ARS_WIDGET_KEY', 'Widget Key' );
+define( '_JSHOP_ARS_WIDGET_KEY', 'widgetKey' );
 define( '_JSHOP_ARS_WIDGET_KEY_TIP', 'Assigned to merchant for access to ArsenalPay payment widget.' );
-define( '_JSHOP_ARS_CALLBACK_KEY', 'Callback key' );
+define( '_JSHOP_ARS_CALLBACK_KEY', 'callbackKey' );
 define( '_JSHOP_ARS_CALLBACK_KEY_TIP', 'With this key you check a validity of sign that comes with callback payment data.' );
 define( '_JSHOP_ARS_CALLBACK_URL', 'Callback URL' );
 define('_JSHOP_ARS_ALLOWED_IP','Allowed IP address');

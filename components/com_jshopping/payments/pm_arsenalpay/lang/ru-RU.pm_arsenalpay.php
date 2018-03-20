@@ -7,11 +7,11 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
-define( '_JSHOP_ARS_WIDGET_ID', 'Widget ID' );
+define( '_JSHOP_ARS_WIDGET_ID', 'widget' );
 define( '_JSHOP_ARS_WIDGET_ID_TIP', 'Присваивается предприятию для доступа к платежному виджету.' );
-define( '_JSHOP_ARS_WIDGET_KEY', 'Widget Key' );
+define( '_JSHOP_ARS_WIDGET_KEY', 'widgetKey' );
 define( '_JSHOP_ARS_WIDGET_KEY_TIP', 'Присваивается предприятию для доступа к платежному виджету.' );
-define( '_JSHOP_ARS_CALLBACK_KEY', 'Callback key' );
+define( '_JSHOP_ARS_CALLBACK_KEY', 'callbackKey' );
 define( '_JSHOP_ARS_CALLBACK_KEY_TIP', 'Ключ для проверки подписи обратных запросов.' );
 define( '_JSHOP_ARS_CALLBACK_URL', 'URL для обратного запроса' );
 define('_JSHOP_ARS_ALLOWED_IP','Разрешенный IP-адрес');
