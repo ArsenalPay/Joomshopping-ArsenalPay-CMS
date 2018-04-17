@@ -5,7 +5,7 @@
 [Arsenal Pay processing center](https://arsenalpay.ru/)
 
 ## Version
-1.0.3
+1.1.0
 
 *For Joomshopping 3&4 and Joomla! 2.5&3.x*
 
@@ -36,6 +36,8 @@ Basic feature list:
  - Your online shop will be receiving callback requests about processed payments for automatically change of order status. The callbacks will be received onto the address assigned in the field **Callback URL** of the payment module settings.
  - Set order statuses for successful, check, cancel, hold, reverse, refund transactions.
  - You can specify ip address only from which it will be allowed to receive callback requests about payments onto your site in **Allowed IP address** field.
+ - If you have integrated with [online checkout](https://arsenalpay.ru/documentation.html#54-fz-integraciya-s-onlajn-kassoj), set the tax parameters which will be sent to the Federal Tax Service.
+ 
 5. Save your settings by clicking on **Save & Close**
 
 ## How to delete
@@ -53,6 +55,7 @@ After successful installation and proper settings new choice of payment method w
 5. After filling out the information depending on the payment type he will receive SMS about payment confirmation or will be redirected to the page with the result of his payment.
 
 ## Changelog
+* 1.1.0 - Upgrade if you need to integration with check online (54-FZ).
 * 1.0.3 - Upgrade to move from frame to widget.
 * 1.0.2 - Upgrade if you need to handle the amount in callback less that the total amount of the order.
 
@@ -78,6 +81,7 @@ After successful installation and proper settings new choice of payment method w
  - Ваш интернет-магазин будет получать уведомления о совершенных платежах: на адрес, указанный в поле **URL для обратного запроса**, от ArsenalPay будет поступать запрос с результатом платежа для фиксирования статусов заказа в системе предприятия.
  - Установите статусы заказов на время ожидания оплаты, после подтверждения платежа, неудавшегося платежа, полного возврата платежа, частичного возврата платежа, отказа от платежа, и случая, когда средства на карте были зарезервированы, но еще не списаны.
  - Вы можете задать ip-адрес, только с которого будут разрешены обратные запросы о совершаемых платежах, в поле **Разрешенный IP-адрес**.
+ - Если вы подключены к [онлайн кассе](https://arsenalpay.ru/documentation.html#54-fz-integraciya-s-onlajn-kassoj), то в блоке **Интеграция с онлайн кассой** установите налоговые ставки для товаров и доставки.
 
 5. Сохраните настройки нажатием на **Сохранить и закрыть**.
 

@@ -1,9 +1,9 @@
 <?php
 /**
- * @version     1.0.2 02.02.2016
+ * @version     1.1.0 16.04.2018
  * @author      ArsenalPay Dev. Team
  * @package     Jshopping
- * @copyright   Copyright (C) 2014-2016 ArsenalPay. All rights reserved.
+ * @copyright   Copyright (C) 2014-2018 ArsenalPay. All rights reserved.
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );

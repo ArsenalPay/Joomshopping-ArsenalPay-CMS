@@ -1,14 +1,16 @@
 <?php
 /**
- * @version     1.0.3 22.11.2017
+ * @version     1.1.0 16.04.2018
  * @author      ArsenalPay Dev. Team
  * @package     Jshopping
- * @copyright   Copyright (C) 2014-2017 ArsenalPay. All rights reserved.
+ * @copyright   Copyright (C) 2014-2018 ArsenalPay. All rights reserved.
  * @license     http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
 class pm_arsenalpay extends PaymentRoot {
+	protected $callback;
+
 	/**
 	 * static
 	 * Checkout Step3
@@ -16,8 +18,8 @@ class pm_arsenalpay extends PaymentRoot {
 	 * @param array $params    - entered params
 	 * @param array $pmconfigs - configs
 	 */
-	function showPaymentForm( $params, $pmconfigs ) {
-		include( dirname( __FILE__ ) . "/paymentform.php" );
+	function showPaymentForm($params, $pmconfigs) {
+		include(dirname(__FILE__) . "/paymentform.php");
 	}
 /////////////////////////////////////////////////////////////
 
@@ -25,7 +27,7 @@ class pm_arsenalpay extends PaymentRoot {
 	 * Form parameters. Edit params payment in administrator.
 	 * static
 	 */
-	function showAdminFormParams( $params ) {
+	function showAdminFormParams($params) {
 		$this->loadLangFile();
 		$array_params = array(
 			'widget_id',
@@ -38,16 +40,29 @@ class pm_arsenalpay extends PaymentRoot {
 			'transaction_open_status',
 			'transaction_other_status', // == reverse / reversal
 			'transaction_refunded_status',
+			'product_tax',
+			'shipment_tax'
 		);
-		foreach ( $array_params as $key ) {
-			if ( ! isset( $params[$key] ) ) {
+		foreach ($array_params as $key) {
+			if (!isset($params[$key])) {
 				$params[$key] = '';
 			}
 		}
-		$orders = JSFactory::getModel( 'orders', 'JshoppingModel' ); //admin model
-		include( dirname( __FILE__ ) . "/adminparamsform.php" );
+		$orders = JSFactory::getModel('orders', 'JshoppingModel'); //admin model
+		$taxes  = $this->getArsenalpayTaxes();
+		include(dirname(__FILE__) . "/adminparamsform.php");
 	}
 
+	function getArsenalpayTaxes() {
+		return array(
+			'none'   => _JSHOP_ARS_TAX_NONE,
+			'vat0'   => _JSHOP_ARS_TAX_VAT0,
+			'vat10'  => _JSHOP_ARS_TAX_VAT10,
+			'vat18'  => _JSHOP_ARS_TAX_VAT18,
+			'vat110' => _JSHOP_ARS_TAX_VAT110,
+			'vat118' => _JSHOP_ARS_TAX_VAT118,
+		);
+	}
 
 	/**
 	 * Check Transaction - here is the handling of callback requests about payments
@@ -58,90 +73,92 @@ class pm_arsenalpay extends PaymentRoot {
 	 *
 	 * @return array($rescode, $restext, $transaction, $transactiondata)
 	 */
-	function checkTransaction( $pmconfigs, $order, $act ) {
-		$callback_params = $_POST;
+	function checkTransaction($pmconfigs, $order, $act) {
+		$this->callback = $_POST;
 
 		$REMOTE_ADDR = $_SERVER["REMOTE_ADDR"];
+		$this->log("Request from " . $REMOTE_ADDR . " " . json_encode($this->callback));
 		$IP_ALLOW = trim($pmconfigs['allowed_ip']);
-		if(strlen($IP_ALLOW)>0 && $IP_ALLOW!=$REMOTE_ADDR) {
-			echo 'ERR';
-			return array(0, 'ERR_IP Order ID '.$order->order_id);
+		if (strlen($IP_ALLOW) > 0 && $IP_ALLOW != $REMOTE_ADDR) {
+			$this->printCallbackResponse('ERR');
+
+			return array(0, 'ERR_IP Order ID ' . $order->order_id);
 		}
 
-		if ( ! $this->checkParams( $callback_params ) ) {
-			echo 'ERR';
+		if (!$this->checkParams($this->callback)) {
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, 'ERR_PARAM ' . $order->order_id );
+			return array(0, 'ERR_PARAM ' . $order->order_id);
 		}
-		$function = $callback_params['FUNCTION'];
+		$function = $this->callback['FUNCTION'];
 		$KEY      = $pmconfigs['callback_key'];
-		if ( ! ( $this->checkSign( $callback_params, $KEY ) ) ) {
-			echo 'ERR';
+		if (!($this->checkSign($this->callback, $KEY))) {
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, 'ERR_INVALID_SIGN ' . $order->order_id );
+			return array(0, 'ERR_INVALID_SIGN ' . $order->order_id);
 		}
-		switch ( $function ) {
+		switch ($function) {
 			case 'check':
-				return $this->callbackCheck( $callback_params, $order, $pmconfigs );
+				return $this->callbackCheck($order, $pmconfigs);
 				break;
 
 			case 'payment':
-				return $this->callbackPayment( $callback_params, $order, $pmconfigs );
+				return $this->callbackPayment($order, $pmconfigs);
 				break;
 
 			case 'cancel':
-				return $this->callbackCancel( $callback_params, $order, $pmconfigs );
+				return $this->callbackCancel($order, $pmconfigs);
 				break;
 
 			case 'cancelinit':
-				return $this->callbackCancel( $callback_params, $order, $pmconfigs );
+				return $this->callbackCancel($order, $pmconfigs);
 				break;
 
 			case 'refund':
-				return $this->callbackRefund( $callback_params, $order, $pmconfigs );
+				return $this->callbackRefund($order, $pmconfigs);
 				break;
 
 			case 'reverse':
-				return $this->callbackReverse( $callback_params, $order, $pmconfigs );
+				return $this->callbackReverse($order, $pmconfigs);
 				break;
 
 			case 'reversal':
-				return $this->callbackReverse( $callback_params, $order, $pmconfigs );
+				return $this->callbackReverse($order, $pmconfigs);
 				break;
 
 			case 'hold':
-				return $this->callbackHold( $callback_params, $order, $pmconfigs );
+				return $this->callbackHold($order, $pmconfigs);
 				break;
 
 			default: {
-				echo 'ERR';
-				$this->log( 'Not supporting function - ' . $function );
+				$this->printCallbackResponse('ERR');
+				$this->log('Not supporting function - ' . $function);
 
-				return array( 0, 'ERR_FUNCTION. Order ID ' . $order->order_id );
+				return array(0, 'ERR_FUNCTION. Order ID ' . $order->order_id);
 			}
 		}
 	}
 
 
-	private function callbackCancel( $callback_params, $order, $pmconfigs ) {
+	private function callbackCancel($order, $pmconfigs) {
 		$required_statuses = array(
 			$pmconfigs['transaction_open_status'],
 			$pmconfigs['transaction_pending_status'],
 		);
-		if ( ! in_array( $order->order_status, $required_statuses ) ) {
+		if (!in_array($order->order_status, $required_statuses)) {
 			$comment = 'CANCEL_ERROR, Order #' . $order->order_id . ' was not checked.';
-			echo 'ERR';
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
 
 		$comment = 'Payment was cancelled';
-		echo 'OK';
+		$this->printCallbackResponse('OK');
 
-		return array( 4, $comment, 'cancel' );
+		return array(4, $comment, 'cancel');
 	}
 
-	private function callbackCheck( $callback_params, $order, $pmconfigs ) {
+	private function callbackCheck($order, $pmconfigs) {
 		$rejected_statuses = array(
 			$pmconfigs['transaction_refunded_status'],
 			$pmconfigs['transaction_cancel_status'],
@@ -149,154 +166,268 @@ class pm_arsenalpay extends PaymentRoot {
 			$pmconfigs['transaction_other_status'],
 		);
 
-		if ( in_array( $order->order_status, $rejected_statuses ) ) {
+		if (in_array($order->order_status, $rejected_statuses)) {
 			$comment = 'CHECK_ERROR, Order #' . $order->order_id . ' has rejected status(' . $order->order_status . ')';
-			echo 'NO';
+			$this->printCallbackResponse('NO');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
-		$should_pay      = $this->getAmount( $order );
-		$isCorrectAmount = ( $callback_params['MERCH_TYPE'] == 0 && $should_pay == $callback_params['AMOUNT'] ) ||
-		                   ( $callback_params['MERCH_TYPE'] == 1 && $should_pay >= $callback_params['AMOUNT'] && $should_pay == $callback_params['AMOUNT_FULL'] );
+		$should_pay      = $this->getOrderTotal($order);
+		$isCorrectAmount = ($this->callback['MERCH_TYPE'] == 0 && $should_pay == $this->callback['AMOUNT']) ||
+		                   ($this->callback['MERCH_TYPE'] == 1 && $should_pay >= $this->callback['AMOUNT'] && $should_pay == $this->callback['AMOUNT_FULL']);
 
-		if ( ! $isCorrectAmount ) {
-			$comment = 'Check error: Amounts do not match (request amount ' . $callback_params['AMOUNT'] . ' and ' . $this->getAmount( $order ) . ')';
-			echo 'NO';
+		if (!$isCorrectAmount) {
+			$comment = 'Check error: Amounts do not match (request amount ' . $this->callback['AMOUNT'] . ' and ' . $this->getOrderTotal($order) . ')';
+			$this->printCallbackResponse('NO');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
-		echo 'YES';
+
+		$fiscal = array();
+		if (isset($this->callback['OFD']) && $this->callback['OFD'] == 1) {
+			$fiscal = $this->prepareFiscal($order, $pmconfigs);
+			if (!$fiscal) {
+				$this->printCallbackResponse("ERR");
+				$comment = "CHECK_ERROR, Order #" . $order->order_id . ": Fiscal document is empty";
+				$this->log($comment);
+
+				return array(0, $comment);
+			}
+		}
+		$this->printCallbackResponse('YES', $fiscal);
 
 		$comment = 'Waiting for payment confirmation';
 
-		return array( 2, $comment, $callback_params['STATUS'] );
+		return array(2, $comment, $this->callback['STATUS']);
 	}
 
-	private function callbackPayment( $callback_params, $order, $pmconfigs ) {
+	private function preparePhone($phone) {
+		$phone = preg_replace('/[^0-9]/', '', $phone);
+		if (strlen($phone) < 10) {
+			return false;
+		}
+		if (strlen($phone) == 10) {
+			return $phone;
+		}
+		if (strlen($phone) == 11) {
+			return substr($phone, 1);
+		}
+
+		return false;
+
+	}
+
+	private function prepareFiscal($order, $pmconfigs) {
+		if (!$order) {
+			return array();
+		}
+		$order->getAllItems();
+		$fiscal = array(
+			"id"      => $this->callback['ID'],
+			"type"    => "sell",
+			"receipt" => [
+				"attributes" => [
+					"email" => $order->email
+				],
+				"items"      => array(),
+			]
+
+		);
+
+		$phone = $this->preparePhone($order->phone);
+		if ($phone) {
+			$fiscal['receipt']['attributes']['phone'] = $phone;
+		}
+
+		$discount = $order->order_payment - $order->order_discount;
+		if ($discount) {
+			$discount = $discount / $order->order_subtotal;
+		}
+
+		$shipping  = $this->formatAmount($order->order_shipping, $order->currency_exchange);
+		$total_sum = 0;
+		$iterator  = 0;
+
+		foreach ($order->items as $item) {
+			$iterator ++;
+			if ($iterator == count($order->items)) {
+				$subtotal = $order->order_total - $shipping - $total_sum;
+				$final    = round($subtotal / $item->product_quantity, 2);
+			}
+			else {
+				$final    = round($item->product_item_price * (1 + $discount), 2);
+				$subtotal = $final * $item->product_quantity;
+			}
+			$total_sum   += $subtotal;
+			$fiscal_item = array(
+				"name"     => $item->product_name,
+				"price"    => $this->formatAmount($final, $order->currency_exchange),
+				"quantity" => round($item->product_quantity, 2),
+				"sum"      => $this->formatAmount($subtotal, $order->currency_exchange),
+
+			);
+
+			if (isset($pmconfigs['product_tax']) && strlen($pmconfigs['product_tax']) > 0) {
+				$fiscal_item['tax'] = $pmconfigs['product_tax'];
+			}
+
+			$fiscal['receipt']['items'][] = $fiscal_item;
+		}
+
+		if ($shipping > 0) {
+			$shipping_item = array(
+				"name"     => "Доставка",
+				"price"    => $shipping,
+				"quantity" => 1,
+				"sum"      => $shipping,
+			);
+			if (isset($pmconfigs['shipment_tax']) && strlen($pmconfigs['shipment_tax']) > 0) {
+				$shipping_item['tax'] = $pmconfigs['shipment_tax'];
+			}
+			$fiscal['receipt']['items'][] = $shipping_item;
+		}
+
+		return $fiscal;
+	}
+
+	private function callbackPayment($order, $pmconfigs) {
 		$required_statuses = array(
 			$pmconfigs['transaction_open_status'],
 			$pmconfigs['transaction_pending_status'],
 		);
 
-		if ( ! in_array( $order->order_status, $required_statuses ) ) {
+		if (!in_array($order->order_status, $required_statuses)) {
 			$comment = 'PAYMENT_ERROR, Order #' . $order->order_id . ' was not checked.';
-			echo 'ERR';
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
 		$comment    = '';
-		$should_pay = $this->getAmount( $order );
-		if ( $callback_params['MERCH_TYPE'] == 0 && $should_pay == $callback_params['AMOUNT'] ) {
+		$should_pay = $this->getOrderTotal($order);
+		if ($this->callback['MERCH_TYPE'] == 0 && $should_pay == $this->callback['AMOUNT']) {
 			$comment = 'OK. Order ID ' . $order->order_id . '. Payed full amount.';
 		}
-        elseif ( $callback_params['MERCH_TYPE'] == 1 && $should_pay >= $callback_params['AMOUNT'] && $should_pay == $callback_params['AMOUNT_FULL'] ) {
-			$comment = 'OK. Order ID ' . $order->order_id . '. Payed amount is ' . $callback_params['AMOUNT'];
+        elseif ($this->callback['MERCH_TYPE'] == 1 && $should_pay >= $this->callback['AMOUNT'] && $should_pay == $this->callback['AMOUNT_FULL']) {
+			$comment = 'OK. Order ID ' . $order->order_id . '. Payed amount is ' . $this->callback['AMOUNT'];
 		}
 		else {
-			echo 'ERR';
-			$comment = 'PAYMENT_ERROR: Amounts do not match (request amount ' . $callback_params['AMOUNT'] . ' and ' . $should_pay . ')';
+			$this->printCallbackResponse('ERR');
+			$comment = 'PAYMENT_ERROR: Amounts do not match (request amount ' . $this->callback['AMOUNT'] . ' and ' . $should_pay . ')';
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
 
-		$cart = JSFactory::getModel( 'cart', 'jshop' );
+		$cart = JSFactory::getModel('cart', 'jshop');
 		$cart->load();
 		$cart->getSum();
 		$cart->clear();
-		echo 'OK';
+		$this->printCallbackResponse('OK');
 
-		return array( 1, $comment, $callback_params['STATUS'], array( 'paid_amount' => $callback_params['AMOUNT'] ) );
+		return array(1, $comment, $this->callback['STATUS'], array('paid_amount' => $this->callback['AMOUNT']));
 	}
 
-	private function callbackHold( $callback_params, $order, $pmconfigs ) {
+	private function callbackHold($order, $pmconfigs) {
 		$required_statuses = array(
 			$pmconfigs['transaction_open_status'],
 			$pmconfigs['transaction_pending_status'],
 		);
-		if ( ! in_array( $order->order_status, $required_statuses ) ) {
+		if (!in_array($order->order_status, $required_statuses)) {
 			$comment = 'HOLD_ERROR, Order #' . $order->order_id . ' was not checked. Order has status (' . $order->order_status . ')';
-			echo 'ERR';
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
-		$should_pay      = $this->getAmount( $order );
-		$isCorrectAmount = ( $callback_params['MERCH_TYPE'] == 0 && $should_pay == $callback_params['AMOUNT'] ) ||
-		                   ( $callback_params['MERCH_TYPE'] == 1 && $should_pay >= $callback_params['AMOUNT'] && $should_pay == $callback_params['AMOUNT_FULL'] );
+		$should_pay      = $this->getOrderTotal($order);
+		$isCorrectAmount = ($this->callback['MERCH_TYPE'] == 0 && $should_pay == $this->callback['AMOUNT']) ||
+		                   ($this->callback['MERCH_TYPE'] == 1 && $should_pay >= $this->callback['AMOUNT'] && $should_pay == $this->callback['AMOUNT_FULL']);
 
-		if ( ! $isCorrectAmount ) {
-			$comment = 'HOLD_ERROR: Amounts do not match (request amount ' . $callback_params['AMOUNT'] . ' and ' . $should_pay . ')';
-			echo 'ERR';
+		if (!$isCorrectAmount) {
+			$comment = 'HOLD_ERROR: Amounts do not match (request amount ' . $this->callback['AMOUNT'] . ' and ' . $should_pay . ')';
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
 		$comment = 'Payment was holden';
-		echo 'OK';
+		$this->printCallbackResponse('OK');
 
-		return array( 5, $comment, $callback_params['STATUS'] );
+		return array(5, $comment, $this->callback['STATUS']);
 	}
 
-	private function callbackRefund( $callback_params, $order, $pmconfigs ) {
+	private function callbackRefund($order, $pmconfigs) {
 		$required_statuses = array(
 			$pmconfigs['transaction_refunded_status'],
 			$pmconfigs['transaction_end_status'],
 		);
-		if ( ! in_array( $order->order_status, $required_statuses ) ) {
+		if (!in_array($order->order_status, $required_statuses)) {
 			$comment = 'REFUND_ERROR, Order #' . $order->order_id . ' was not paid or refunded. Order has status (' . $order->order_status . ')';
-			echo 'ERR';
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
 
-		$total = $this->getAmount( $order ) - $this->getRefundedAmount( $order );
+		$total = $this->getOrderTotal($order) - $this->getOrderRefund($order);
 
-		$isCorrectAmount = ( $callback_params['MERCH_TYPE'] == 0 && $total >= $callback_params['AMOUNT'] ) ||
-		                   ( $callback_params['MERCH_TYPE'] == 1 && $total >= $callback_params['AMOUNT'] && $total >= $callback_params['AMOUNT_FULL'] );
+		$isCorrectAmount = ($this->callback['MERCH_TYPE'] == 0 && $total >= $this->callback['AMOUNT']) ||
+		                   ($this->callback['MERCH_TYPE'] == 1 && $total >= $this->callback['AMOUNT'] && $total >= $this->callback['AMOUNT_FULL']);
 
-		if ( ! $isCorrectAmount ) {
-			$comment = "Refund error: Paid amount({$total}) < request refund amount({$callback_params['AMOUNT']})";
-			echo 'ERR';
+		if (!$isCorrectAmount) {
+			$comment = "Refund error: Paid amount({$total}) < request refund amount({$this->callback['AMOUNT']})";
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
-		$comment = "Payment was refund with amount = " . $callback_params['AMOUNT'];
-		echo 'OK';
+		$comment = "Payment was refund with amount = " . $this->callback['AMOUNT'];
+		$this->printCallbackResponse('OK');
 
-		return array( 7, $comment, $callback_params['STATUS'], array( 'refund_amount' => $callback_params['AMOUNT'] ) );
+		return array(7, $comment, $this->callback['STATUS'], array('refund_amount' => $this->callback['AMOUNT']));
 	}
 
-	private function callbackReverse( $callback_params, $order, $pmconfigs ) {
-		if ( $order->order_status != $pmconfigs['transaction_end_status'] ) {
+	private function callbackReverse($order, $pmconfigs) {
+		if ($order->order_status != $pmconfigs['transaction_end_status']) {
 			$comment = 'REVERSE_ERROR, Order #' . $order->order_id . ' was not paid. Order has status (' . $order->order_status . ')';
-			echo 'ERR';
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
-		$refunded_amount = $this->getRefundedAmount( $order );
-		$paid_amount     = $this->getAmount( $order );
+		$refunded_amount = $this->getOrderRefund($order);
+		$paid_amount     = $this->getOrderTotal($order);
 		$total           = $paid_amount - $refunded_amount;
-		$isCorrectAmount = ( $callback_params['MERCH_TYPE'] == 0 && $total == $callback_params['AMOUNT'] ) ||
-		                   ( $callback_params['MERCH_TYPE'] == 1 && $total >= $callback_params['AMOUNT'] && $total == $callback_params['AMOUNT_FULL'] );
+		$isCorrectAmount = ($this->callback['MERCH_TYPE'] == 0 && $total == $this->callback['AMOUNT']) ||
+		                   ($this->callback['MERCH_TYPE'] == 1 && $total >= $this->callback['AMOUNT'] && $total == $this->callback['AMOUNT_FULL']);
 
-		if ( ! $isCorrectAmount ) {
-			$comment = 'REVERSE_ERROR: Amounts do not match (request amount ' . $callback_params['AMOUNT'] . ' and ' . $total . ')';
-			$this->log( "Paid amount = {$paid_amount}, refunded amount = {$refunded_amount}, request amount = {$callback_params['AMOUNT']}" );
-			echo 'ERR';
+		if (!$isCorrectAmount) {
+			$comment = 'REVERSE_ERROR: Amounts do not match (request amount ' . $this->callback['AMOUNT'] . ' and ' . $total . ')';
+			$this->log("Paid amount = {$paid_amount}, refunded amount = {$refunded_amount}, request amount = {$this->callback['AMOUNT']}");
+			$this->printCallbackResponse('ERR');
 
-			return array( 0, $comment );
+			return array(0, $comment);
 		}
 
 		$comment = 'Payment was reversed';
-		echo 'OK';
+		$this->printCallbackResponse('OK');
 
 		return array(
 			10,
 			$comment,
 			'reverse',
-			array( 'refund_amount' => $callback_params['AMOUNT'] )
+			array('refund_amount' => $this->callback['AMOUNT'])
 		);
 	}
 
-	private function checkParams( $callback_params ) {
+	private function printCallbackResponse($msg, $fiscal = array()) {
+
+		if (isset($this->callback['FORMAT']) && $this->callback['FORMAT'] == 'json') {
+			$msg = array("response" => $msg);
+			if ($fiscal && isset($this->callback['OFD']) && $this->callback['OFD'] == 1) {
+				$msg['ofd'] = $fiscal;
+			}
+			$msg = json_encode($msg);
+		}
+		$this->log("Response: " . $msg);
+		echo $msg;
+	}
+
+	private function checkParams($callback_params) {
 		$required_keys = array
 		(
 			'ID',           /* Merchant identifier */
@@ -315,18 +446,18 @@ class pm_arsenalpay extends PaymentRoot {
 		/**
 		 * Checking the absence of each parameter in the post request.
 		 */
-		foreach ( $required_keys as $key ) {
-			if ( empty( $callback_params[$key] ) || ! array_key_exists( $key, $callback_params ) ) {
-				$this->log( 'Error in callback parameters ERR' . $key );
+		foreach ($required_keys as $key) {
+			if (empty($callback_params[$key]) || !array_key_exists($key, $callback_params)) {
+				$this->log('Error in callback parameters ERR' . $key);
 
 				return false;
 			}
-			else {
-				$this->log( " $key=$callback_params[$key]" );
-			}
+//			else {
+//				$this->log(" $key=$callback_params[$key]");
+//			}
 		}
-		if ( $callback_params['FUNCTION'] != $callback_params['STATUS'] ) {
-			$this->log( "Error: FUNCTION ({$callback_params['FUNCTION']} not equal STATUS ({$callback_params['STATUS']})" );
+		if ($callback_params['FUNCTION'] != $callback_params['STATUS']) {
+			$this->log("Error: FUNCTION ({$callback_params['FUNCTION']} not equal STATUS ({$callback_params['STATUS']})");
 
 			return false;
 		}
@@ -334,32 +465,32 @@ class pm_arsenalpay extends PaymentRoot {
 		return true;
 	}
 
-	private function checkSign( $callback, $pass ) {
+	private function checkSign($callback, $pass) {
 
-		$validSign = ( $callback['SIGN'] === md5( md5( $callback['ID'] ) .
-		                                          md5( $callback['FUNCTION'] ) . md5( $callback['RRN'] ) .
-		                                          md5( $callback['PAYER'] ) . md5( $callback['AMOUNT'] ) . md5( $callback['ACCOUNT'] ) .
-		                                          md5( $callback['STATUS'] ) . md5( $pass ) ) ) ? true : false;
+		$validSign = ($callback['SIGN'] === md5(md5($callback['ID']) .
+		                                        md5($callback['FUNCTION']) . md5($callback['RRN']) .
+		                                        md5($callback['PAYER']) . md5($callback['AMOUNT']) . md5($callback['ACCOUNT']) .
+		                                        md5($callback['STATUS']) . md5($pass))) ? true : false;
 
 		return $validSign;
 	}
 
 	/*Checkout Step6 - show ArsenalPay payment widget*/
-	function showEndForm( $pmconfigs, $order ) {
+	function showEndForm($pmconfigs, $order) {
 		$userId      = $order->user_id;
 		$destination = $order->order_id;
-		$amount      = $this->getAmount($order);
+		$amount      = $this->getOrderTotal($order);
 		$widget      = $pmconfigs['widget_id'];
 		$widget_key  = $pmconfigs['widget_key'];
-		$nonce       = md5( microtime( true ) . mt_rand( 100000, 999999 ) );
+		$nonce       = md5(microtime(true) . mt_rand(100000, 999999));
 		$sign_param  = "$userId;$destination;$amount;$widget;$nonce";
-		$widget_sign = hash_hmac( 'sha256', $sign_param, $widget_key );
+		$widget_sign = hash_hmac('sha256', $sign_param, $widget_key);
 
-		$checkout = JSFactory::getModel( 'checkoutOrder', 'jshop' );
-		$checkout->checkStep( 6 );
+		$checkout = JSFactory::getModel('checkoutOrder', 'jshop');
+		$checkout->checkStep(6);
 		// if $checkout->getSendEndForm() == 1 order will be canceled when user reload page (even if order was paid)
-		$checkout->setSendEndForm( 0 );
-		if ( $order->order_status == $pmconfigs['transaction_end_status'] ) {
+		$checkout->setSendEndForm(0);
+		if ($order->order_status == $pmconfigs['transaction_end_status']) {
 			?>
             <script>window.location = '<?php echo JURI::root() . "index.php?option=com_jshopping&controller=checkout&task=step7&act=return&js_paymentclass=pm_arsenalpay"; ?>';</script>
 			<?php
@@ -381,14 +512,22 @@ class pm_arsenalpay extends PaymentRoot {
 		<?php
 	}
 
-	private function getAmount( $order ) {
-		$total = number_format( $order->order_total / $order->currency_exchange, 2, '.', '' );
-
-		return $total;
+	private function getOrderTotal($order) {
+		return $this->formatAmount($order->order_total, $order->currency_exchange);
 	}
 
-	private function log( $msg ) {
-		saveToLog( "paymentdata.log", $msg );
+	private function formatAmount($amount, $currency_exchange = false) {
+		if ($currency_exchange == false) {
+			return round($amount, 2);
+		}
+		else {
+			return round($amount / $currency_exchange, 2);
+		}
+
+	}
+
+	private function log($msg) {
+		saveToLog("paymentdata.log", $msg);
 	}
 
 	/**
@@ -396,16 +535,16 @@ class pm_arsenalpay extends PaymentRoot {
 	 *
 	 * @return float|int
 	 */
-	private function getRefundedAmount( $order ) {
+	private function getOrderRefund($order) {
 		$transactions = $order->getListTransactions();
-		if ( ! $transactions ) {
+		if (!$transactions) {
 			return 0;
 		}
 		$refunded_amount = 0;
-		foreach ( $transactions as $transaction ) {
-			foreach ( $transaction->data as $data_obj ) {
-				if ( $data_obj->key == 'refund_amount' ) {
-					$refunded_amount += floatval( $data_obj->value );
+		foreach ($transactions as $transaction) {
+			foreach ($transaction->data as $data_obj) {
+				if ($data_obj->key == 'refund_amount') {
+					$refunded_amount += $this->formatAmount($data_obj->value, $order->currency_exchange);
 				}
 
 			}
@@ -414,7 +553,7 @@ class pm_arsenalpay extends PaymentRoot {
 		return $refunded_amount;
 	}
 
-	function getUrlParams( $pmconfigs ) {
+	function getUrlParams($pmconfigs) {
 		$params                      = array();
 		$params['order_id']          = $_POST['ACCOUNT'];
 		$params['hash']              = "";
@@ -426,7 +565,7 @@ class pm_arsenalpay extends PaymentRoot {
 
 	function loadLangFile() {
 		$lang = JFactory::getLanguage();
-		if ( ! $lang_file = JPATH_SITE . '/components/com_jshopping/payments/pm_arsenalpay/lang/' . $lang->getTag() . '.pm_arsenalpay.php' ) {
+		if (!$lang_file = JPATH_SITE . '/components/com_jshopping/payments/pm_arsenalpay/lang/' . $lang->getTag() . '.pm_arsenalpay.php') {
 			require_once JPATH_ROOT . '/components/com_jshopping/payments/arsenalpay/lang/' . 'en-GB.pm_arsenalpay.php';
 		}
 		else {
