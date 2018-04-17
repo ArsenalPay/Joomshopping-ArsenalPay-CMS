@@ -1,2 +1,3 @@
-INSERT INTO `#__jshopping_payment_method` (`payment_code`, `payment_class`, `payment_publish`, `payment_ordering`, `payment_type`, `price`, `price_type`, `tax_id`, `show_descr_in_email`, `name_en-GB`, `name_de-DE`) VALUES ('arsenalpay', 'pm_arsenalpay', 1, 0, 2, 0.00, 0, 1, 0, 'ArsenalPay', 'ArsenalPay');
+INSERT INTO `#__jshopping_payment_method` (`payment_code`, `payment_class`, `payment_publish`, `payment_ordering`, `payment_type`, `price`, `price_type`, `tax_id`, `show_descr_in_email`, `name_en-GB`, `name_de-DE`) SELECT 'arsenalpay', 'pm_arsenalpay', 1, 0, 2, 0.00, 0, 1, 0, 'ArsenalPay', 'ArsenalPay' as tmp WHERE NOT EXISTS ( SELECT `payment_code` FROM `#__jshopping_payment_method` WHERE `payment_code`='arsenalpay') LIMIT 1;
+
 UPDATE `#__jshopping_payment_method` SET `name_ru-RU` = 'ArsenalPay' WHERE `payment_class` = 'pm_arsenalpay';
