@@ -33,7 +33,7 @@ define('_JSHOP_ARS_REQUIRED_TEXT', 'Обязательные поля');
 define('_JSHOP_ARS_PRODUCT_TAX', 'Налоговая ставка на товары');
 define('_JSHOP_ARS_SHIPMENT_TAX', 'Налоговая ставка на доставку');
 
-define('_JSHOP_ARS_TAX_DESCR', "Этот блок необходимо настроить, только если вы интегрированы с <a href='https://arsenalpay.ru/documentation.html#54-fz-integraciya-s-onlajn-kassoj'>онлайн кассой</a>. Установите налоговые ставки для товоров и доставки, которые будут отправлены в ФНС.");
+define('_JSHOP_ARS_TAX_DESCR', "Этот блок необходимо настроить, только если вы интегрированы с <a href='https://arsenalpay.ru/documentation.html#54-fz-integraciya-s-onlajn-kassoj'>онлайн кассой</a>. Установите налоговые ставки, которые будут указаны в чеке");
 
 
 define('_JSHOP_ARS_TAX_NONE', 'Без НДС');
