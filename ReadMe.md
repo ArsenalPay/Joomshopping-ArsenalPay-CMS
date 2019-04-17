@@ -1,78 +1,74 @@
-# ArsenalPay Payment Module for Joomshopping of Joomla! CMS
+# ArsenalPay: приём платежей без покупки онлайн-кассы
 
-*Arsenal Media LLC*
+## Version 1.1.0
 
-[Arsenal Pay processing center](https://arsenalpay.ru/)
+Тестировалось на версиях Joomshopping 3 - 4 и Joomla 2.5 - 3.x
 
-## Version
-1.1.0
-
-*For Joomshopping 3&4 and Joomla! 2.5&3.x*
-
-## Source
-[Official integration guide page]( https://arsenalpay.ru/developers.html )  
-[Module in Joomla! Extensions Directory](http://extensions.joomla.org/extensions/extension/e-commerce/payment-gateway/arsenalpay-for-joomshopping)
-
-Basic feature list:
-
- * Allows seamlessly integrate unified payment frame into your site.
- * New payment method ArsenalPay will appear to pay for your products and services.
- * Allows to pay using mobile commerce and bank aquiring. More methods are about to become available. Please check for updates.
- * Supports two languages (Russian, English).
+## Описание
+ - ArsenalPay – удобный и надежный платежный сервис для бизнеса любого размера.
+ - Самые низкие тарифы.
+ - Не нужно покупать или арендовать онлайн кассу, мы создали [готовое решение](https://arsenalpay.ru/cashbox.html) для отправки фискальных чеков.
+ - Платежный виджет настраивается под цвета вашего сайта
+ - Деньги перечисляются на ваш расчетный счет ежедневно за минусом комиссии. Без каких-либо лимитов, минимальных сумм или звёздочек в договоре
  
-## How to install
-1. Download the latest release by clicking [this link](https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/) (IMPORTANT! The archive must contain the structure of the project itself started at `components`, without any additional folder in the upper level of the structure.)
-2. Go to Joomla! admin panel.
-3. There go  to **Components > JoomShopping > Install & Update**.
-4. Upload  ArsenalPay module zip package. 
+![картинка](https://arsenalpay.ru/images/1-ArsenalPay-priem-platezhej-na-sajte-besplatnaya-onlajn-kassa.png "Прием платежей на сайте")
 
-## Configuration 
+## Тарифы
+2,6% за успешный платеж. Снижаем комиссию при обороте свыше 1 млн. Подключение и интеграция бесплатно.
 
-1. Go to **Components > JoomShopping > Options > Payments**.
-2. There find **ArsenalPay** and click on **Edit**.
-3. In **General** tab you can change the **Title** of ArsenalPay payment method as you wish it will be appeared at your site.
-4. Go into **Config** tab and make following settings there:
- - Fill out **widget**,**widgetKey**, **callbackKey** fields with your received widget, widgetKey and callbackKey.
- - Your online shop will be receiving callback requests about processed payments for automatically change of order status. The callbacks will be received onto the address assigned in the field **Callback URL** of the payment module settings.
- - Set order statuses for successful, check, cancel, hold, reverse, refund transactions.
- - You can specify ip address only from which it will be allowed to receive callback requests about payments onto your site in **Allowed IP address** field.
- - If you have integrated with [online checkout](https://arsenalpay.ru/documentation.html#54-fz-integraciya-s-onlajn-kassoj), set the tax parameters which will be sent to the Federal Tax Service.
- 
-5. Save your settings by clicking on **Save & Close**
+Используя ArsenalPay, Вы сможете принимать онлайн платежи при помощи:
+ - банковских карт Visa, MasterCard, Maestro и Мир, выпущенных в любом банке мира
+ - баланса мобильного телефона операторов МТС, Мегафон, Билайн и Теле2
+ - различных электронных кошельков
 
-## How to delete
-1. Go to **Components > JoomShopping > Options > Payments** in Joomla! admin panel
-2. **Delete** ArsenalPay payment method.
-3. To delete completely all module files go to your web site server via ftp and delete *pm_arsenalpay* folder from its installed directory path `pathToYourSiteFoler/components/com_jshopping/payments/`. 
+Платежные инструменты ArsenalPay прошли самую высокую международную сертификацию – в соответствии со максимальным стандартом безопасности данных индустрии платёжных карт PCI DSS.
 
-## Usage
-After successful installation and proper settings new choice of payment method with ArsenalPay will appear on your site. To make payment for an order a payer will need to:
+## Онлайн касса не нужна
+Вам не нужно покупать или арендовать свою онлайн кассу – мы создали готовое решение для отправки фискальных чеков: ваш клиент оплачивает покупку в интернет магазине через платежную систему ArsenalPay. Чек отправляется на email вашего клиента, а информация о платеже через ОФД поступает в налоговую.
+![картинка](https://arsenalpay.ru/images/2-ArsenalPay-onlajn-kassa-besplatno.png "Онлайн касса бесплатно")
 
-1. Choose goods from the shop catalog.
-2. Go into the order page.
-3. Choose the ArsenalPay payment method.
-4. Check the order detailes and confirm the order.
-5. After filling out the information depending on the payment type he will receive SMS about payment confirmation or will be redirected to the page with the result of his payment.
+Все платежи проходят через онлайн кассу ArsenalPay. Мы выступаем как агент и отправляем чеки от имени нашего сервиса. В чеке указывается ИНН вашего ИП или юридического лица, а также все необходимые данные, в соответствии с законом 54-ФЗ.
 
-## Changelog
-* 1.1.0 - Upgrade if you need to integration with check online (54-FZ).
-* 1.0.3 - Upgrade to move from frame to widget.
-* 1.0.2 - Upgrade if you need to handle the amount in callback less that the total amount of the order.
+Вам не придется тратить более 40 тысяч рублей в год на покупку или аренду кассы и фискального накопителя. Все затраты и задачи по ведению онлайн касс и отправке фискальных чеков лежат на ArsenalPay и включены в комиссию за эквайринг.
 
-------------------
-### О МОДУЛЕ
-* Модуль платежной системы ArsenalPay под Joomshopping позволяет легко встроить платежную страницу на Ваш сайт.
-* После установки модуля у Вас появится новый вариант оплаты товаров и услуг через платежную систему ArsenalPay.
-* Платежная система ArsenalPay позволяет совершать оплату с различных источников списания средств: мобильных номеров (МТС/Мегафон/Билайн/TELE2), пластиковых карт (VISA/MasterCard/Maestro). Перечень доступных источников средств постоянно пополняется. Следите за обновлениями.
-* Модуль поддерживает русский и английский языки.
+## Личный кабинет
+Один из основных инструментов контроля приема платежей в интернет: статистика и история платежей, фильтрация и удобный поиск, настройки, частичные и полные возвраты, подтверждение двухэтапных (зарезервированных) платежей, выставление счетов, экспорт реестров и многое другое.
+![картинка](https://arsenalpay.ru/images/3-ArsenalPay-fiskalnye-cheki-v-lichnom-kabinete.png "Удобный личный кабинет")
 
-### УСТАНОВКА 
+Чтобы вам было удобнее, мы в личный кабинет добавили онлайн чеки по каждой транзакции, будь то успешный платеж или отмена покупки. Теперь при оплате фискальный чек отправляется на email вашего клиента, а информация о платеже поступает в налоговую. Все чеки сохраняются в вашем личном кабинете, вы всегда сможете найти, посмотреть или распечатать любой чек.
+
+Теперь вам не только не нужно покупать или арендовать свою онлайн кассу, но и можно пользоваться только одним личным кабинетом для контроля за платежами и онлайн чеками.
+![картинка](https://arsenalpay.ru/images/4-ArsenalPay-fiskalnye-cheki-v-vashem-mobilnom.png "Все чеки у вас в мобильном")
+
+## Быстрый старт
+Тем кто не хочет заниматься настройкой сайта и хочет максимально оперативно включить прием платежей, мы предоставляем сервис Быстрый старт.
+
+Вы получаете полностью готовое решение для приема платежей, не нужно тратить время на интеграцию и подготовку сайта в соответствие с требованиями международных платежных систем. Полученную личную ссылку размещаете на любой странице вашего сайта и начинаете прием платежей в течение 3 дней.
+
+Нужен только ИНН вашей компании. Онлайн касса бесплатно. Покупать или арендовать кассу не нужно.
+![картинка](https://arsenalpay.ru/images/5-ArsenalPay-bystryj-start-platezhej-na-sajte-onlajn-kassa-besplatno.png "Быстрый старт")
+
+## Основные этапы подключения
+1. Установите приложение в ваш интернет магазин.
+2. [Зарегистрируйтесь](https://arsenalpay.ru/dashboard/register?step=1) у нас в сервисе
+3. Вам будет предоставлен личный кабинет, где сразу же получите все необходимые параметры для настройки приложения:
+- идентификатор виджета (widgetId)
+- секретный ключ виджета (widgetKey)
+- секретный ключ для callback-уведомлений (callbackKey)
+4. Сообщите нам URL для callback-уведомлений из настроек вашего приложения, чтобы после успешного платежа в вашем магазине обновлялся статус заказа.
+5. Подписываем договор и приступаем к работе.
+
+![картинка](https://arsenalpay.ru/images/6-ArsenalPay-vidzhet-oplaty-v-firmennyx-cvetax-vashego-sajta.png "Виджет оплаты в ваших фирменных цветах")
+
+Подробную инструкцию по установке, настройке и использованию модуля вы можете [скачать тут](https://arsenalpay.ru/instructions/Joomshopping_%D0%A1%D0%9C%D0%A1_instruction.pdf).
+
+## УСТАНОВКА 
 1. Скачайте последний релиз платежного модуля ArsenalPay по [ссылке](https://github.com/ArsenalPay/Joomshopping-ArsenalPay-CMS/releases/) (ВАЖНО! Архив должен сам содержать структуру проекта, начинающуюся с `components`, без дополнительной папки на верхнем уровне этой структуры.)
 2. Зайдите в администрирование Joomla!.
 3. Затем пройдите в раздел **Компоненты > JoomShopping > Установка и обновление**.
 4. Загрузите скачанный на первом шаге архив c модулем ArsenalPay.
 
-### НАСТРОЙКА
+## НАСТРОЙКА
 1. После установки зайдите в раздел **Компоненты > JoomShopping > Опции > Способ оплаты**.
 2. Найдите в списке **ArsenalPay** и нажмите на **Редактировать**.
 3. Во вкладке **Главная** Вы можете изменить **Название** платежного метода ArsenalPay так, как Вы хотите отобразить его на Вашем сайте.
@@ -85,12 +81,12 @@ After successful installation and proper settings new choice of payment method w
 
 5. Сохраните настройки нажатием на **Сохранить и закрыть**.
 
-### УДАЛЕНИЕ
+## УДАЛЕНИЕ
 1. Пройдите в раздел **Компоненты > JoomShopping > Опции > Способ оплаты**  администрирования Joomla!
 2. Удалите созданный при установке способ оплаты ArsenalPay;
 3. Зайдите на сервер, где хранится Ваш сайт, например, через ftp, и удалите директорию *pm_arsenalpay*, находящуюся по пути `путьКПапкеВашегоСайта/components/com_jshopping/payments/`.
 
-### ИСПОЛЬЗОВАНИЕ
+## ИСПОЛЬЗОВАНИЕ
 После успешной установки и настройки модуля на сайте появится возможность выбора платежной системы ArsenalPay.
 Для оплаты заказа с помощью платежной системы ArsenalPay нужно:
 
@@ -100,48 +96,9 @@ After successful installation and proper settings new choice of payment method w
 4. Перейти на страницу подтверждения введенных данных и ввода источника списания средств (мобильный номер, пластиковая карта и т.д.).
 5. После ввода данных об источнике платежа, в зависимости от его типа, либо придет СМС о подтверждении платежа, либо покупатель будет перенаправлен на страницу с результатом платежа.
 
-------------------
-### ОПИСАНИЕ РЕШЕНИЯ
-ArsenalPay – удобный и надежный платежный сервис для бизнеса любого размера. 
-
-Используя платежный модуль от ArsenalPay, вы сможете принимать онлайн-платежи от клиентов по всему миру с помощью: 
-пластиковых карт международных платёжных систем Мир, Visa и MasterCard, эмитированных в любом банке
-баланса мобильного телефона операторов МТС, Мегафон, Билайн, Ростелеком и ТЕЛЕ2
-различных электронных кошельков 
-
-### Преимущества сервиса: 
- - [Самые низкие тарифы](https://arsenalpay.ru/tariffs.html)
- - Бесплатное подключение и обслуживание
- - Легкая интеграция
- - [Агентская схема: ежемесячные выплаты разработчикам](https://arsenalpay.ru/partnership.html)
- - Вывод средств на расчетный счет без комиссии
- - Сервис смс оповещений
- - Персональный личный кабинет
- - Круглосуточная сервисная поддержка клиентов 
-
-А ещё мы можем взять на техническую поддержку ваш сайт и создать для вас мобильные приложения для Android и iOS. 
-
-ArsenalPay – увеличить прибыль просто! 
-Мы работаем 7 дней в неделю и 24 часа в сутки. А вместе с нами множество российских и зарубежных компаний. 
-
-### Как подключиться: 
-1. Вы скачали модуль и установили его у себя на сайте;
-2. Отправьте нам письмом ссылку на Ваш сайт на pay@arsenalpay.ru либо оставьте заявку на [сайте](https://arsenalpay.ru/#registerModal) через кнопку "Подключиться";
-3. Мы Вам вышлем коммерческие условия и технические настройки;
-4. После Вашего согласия мы отправим Вам проект договора на рассмотрение.
-5. Подписываем договор и приступаем к работе.
 
 Всегда с радостью ждем ваших писем с предложениями. 
 
 pay@arsenalpay.ru 
 
 [arsenalpay.ru](https://arsenalpay.ru)
-
-
-
-
-
- 
-
-
-
